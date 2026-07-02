@@ -35,6 +35,9 @@
   "toggleRef": {
     "message": "移除 ref/跟踪参数 (ref、igshid、mc_* …)"
   },
+  "toggleTextFragments": {
+    "message": "移除文本片段 (#:~:text=)"
+  },
   "btnCopyClean": {
     "message": "复制干净网址"
   },

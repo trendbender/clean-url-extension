@@ -35,6 +35,9 @@
   "toggleRef": {
     "message": "Удалять ref/трекинг (ref, igshid, mc_*, …)"
   },
+  "toggleTextFragments": {
+    "message": "Удалять текст-фрагменты (#:~:text=)"
+  },
   "btnCopyClean": {
     "message": "Копировать чистую"
   },

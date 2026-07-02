@@ -1,14 +1,4 @@
-const DEFAULT_SETTINGS = {
-  removeUtm: true,
-  removeClickIds: true,
-  removeRef: true
-};
-
-const CLICK_IDS = new Set(["gclid","gbraid","wbraid","fbclid","msclkid","ttclid","yclid","dclid","gclsrc"]);
-const REF_TRACKING = new Set(["ref","ref_src","igshid","mc_cid","mc_eid","vero_id","s_cid","gad_source","gad_campaignid","adid","campaignid","term"]);
-// Site-specific tracking params (LinkedIn: lipi/lici/trk are page-instance & source trackers)
-const SITE_TRACKING = new Set(["lipi","lici","trk","trkinfo","refid","midtoken","midsig","otptoken","originalreferer"]);
-const UTM_PREFIX = "utm_";
+import { DEFAULT_SETTINGS, cleanUrl, isValidHttpUrl } from "./cleaner.js";
 
 const els = {
   originalUrl: document.getElementById("originalUrl"),
@@ -19,6 +9,7 @@ const els = {
   toggleUtm: document.getElementById("toggleUtm"),
   toggleClickIds: document.getElementById("toggleClickIds"),
   toggleRef: document.getElementById("toggleRef"),
+  toggleTextFragment: document.getElementById("toggleTextFragment"),
 
   btnCopyClean: document.getElementById("btnCopyClean"),
   btnCopyOriginal: document.getElementById("btnCopyOriginal"),
@@ -27,7 +18,6 @@ const els = {
 
 let currentOriginal = "";
 let currentClean = "";
-let removedCount = 0;
 
 // i18n helper: returns the localized message, falling back to the key.
 function t(key, subs) {
@@ -54,70 +44,6 @@ function normalizeUrlForDisplay(url) {
   try { return decodeURI(url); } catch { return url; }
 }
 
-function isValidHttpUrl(url) {
-  try {
-    const u = new URL(url);
-    return u.protocol === "http:" || u.protocol === "https:";
-  } catch {
-    return false;
-  }
-}
-
-function cleanUrl(original, settings) {
-  removedCount = 0;
-
-  // Fail-safe: only process http(s)
-  if (!isValidHttpUrl(original)) {
-    return { clean: original, removed: 0, safe: true };
-  }
-
-  let u;
-  try {
-    u = new URL(original);
-  } catch {
-    return { clean: original, removed: 0, safe: false };
-  }
-
-  const toDelete = [];
-  for (const [key] of u.searchParams) {
-    const k = key.toLowerCase();
-
-    if (settings.removeUtm && k.startsWith(UTM_PREFIX)) {
-      toDelete.push(key);
-      continue;
-    }
-    if (settings.removeClickIds && CLICK_IDS.has(k)) {
-      toDelete.push(key);
-      continue;
-    }
-    if (settings.removeRef) {
-      // Includes mc_* keys and site-specific trackers (LinkedIn lipi/trk, etc.)
-      if (REF_TRACKING.has(k) || SITE_TRACKING.has(k) || k.startsWith("mc_")) {
-        toDelete.push(key);
-        continue;
-      }
-    }
-  }
-
-  // Remove
-  for (const k of toDelete) {
-    // delete removes ALL instances of that key
-    u.searchParams.delete(k);
-  }
-  removedCount = toDelete.length;
-
-  // Preserve hash is handled by URL automatically (u.hash)
-  // Ensure valid output
-  const out = u.toString();
-
-  // Edge fail-safe: if cleaning produced an invalid/empty string, fallback
-  if (!out || !isValidHttpUrl(out)) {
-    return { clean: original, removed: 0, safe: false };
-  }
-
-  return { clean: out, removed: removedCount, safe: true };
-}
-
 async function getActiveTabUrl() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   return tab?.url || "";
@@ -128,7 +54,8 @@ async function loadSettings() {
   return {
     removeUtm: data.removeUtm ?? true,
     removeClickIds: data.removeClickIds ?? true,
-    removeRef: data.removeRef ?? true
+    removeRef: data.removeRef ?? true,
+    removeTextFragment: data.removeTextFragment ?? true,
   };
 }
 
@@ -140,7 +67,8 @@ function readSettingsFromUI() {
   return {
     removeUtm: !!els.toggleUtm.checked,
     removeClickIds: !!els.toggleClickIds.checked,
-    removeRef: !!els.toggleRef.checked
+    removeRef: !!els.toggleRef.checked,
+    removeTextFragment: !!els.toggleTextFragment.checked,
   };
 }
 
@@ -176,6 +104,7 @@ function wireEvents() {
   els.toggleUtm.addEventListener("change", onToggle);
   els.toggleClickIds.addEventListener("change", onToggle);
   els.toggleRef.addEventListener("change", onToggle);
+  els.toggleTextFragment.addEventListener("change", onToggle);
 
   els.btnCopyClean.addEventListener("click", async () => {
     try {
@@ -210,6 +139,7 @@ function wireEvents() {
   els.toggleUtm.checked = settings.removeUtm;
   els.toggleClickIds.checked = settings.removeClickIds;
   els.toggleRef.checked = settings.removeRef;
+  els.toggleTextFragment.checked = settings.removeTextFragment;
 
   const url = await getActiveTabUrl();
   render(settings, url);

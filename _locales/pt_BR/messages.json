@@ -35,6 +35,9 @@
   "toggleRef": {
     "message": "Remover ref/rastreamento (ref, igshid, mc_*, …)"
   },
+  "toggleTextFragments": {
+    "message": "Remover fragmentos de texto (#:~:text=)"
+  },
   "btnCopyClean": {
     "message": "Copiar limpa"
   },
