@@ -29,6 +29,22 @@ let currentOriginal = "";
 let currentClean = "";
 let removedCount = 0;
 
+// i18n helper: returns the localized message, falling back to the key.
+function t(key, subs) {
+  return chrome.i18n.getMessage(key, subs) || key;
+}
+
+// Replace all [data-i18n] text and set <html lang> to the UI locale.
+function applyStaticI18n() {
+  const uiLocale = chrome.i18n.getMessage("@@ui_locale");
+  if (uiLocale) document.documentElement.lang = uiLocale.replace("_", "-");
+  document.title = t("appTitle");
+  for (const el of document.querySelectorAll("[data-i18n]")) {
+    const msg = t(el.dataset.i18n);
+    if (msg) el.textContent = msg;
+  }
+}
+
 function setStatus(msg, kind = "") {
   els.status.textContent = msg || "";
   els.status.className = "status " + (kind || "");
@@ -136,10 +152,10 @@ function render(settings, original) {
   currentClean = result.clean;
 
   els.cleanUrl.value = normalizeUrlForDisplay(currentClean);
-  els.removedHint.textContent = `Removed ${result.removed} params`;
+  els.removedHint.textContent = t("removedParams", [String(result.removed)]);
 
   if (!result.safe) {
-    setStatus("Fail-safe: using original URL", "err");
+    setStatus(t("statusFailsafe"), "err");
   } else {
     setStatus("");
   }
@@ -164,18 +180,18 @@ function wireEvents() {
   els.btnCopyClean.addEventListener("click", async () => {
     try {
       await copyToClipboard(currentClean || "");
-      setStatus("Copied clean URL", "ok");
+      setStatus(t("statusCopiedClean"), "ok");
     } catch {
-      setStatus("Clipboard blocked. Try ⌘C from the field.", "err");
+      setStatus(t("statusClipboardBlocked"), "err");
     }
   });
 
   els.btnCopyOriginal.addEventListener("click", async () => {
     try {
       await copyToClipboard(currentOriginal || "");
-      setStatus("Copied original URL", "ok");
+      setStatus(t("statusCopiedOriginal"), "ok");
     } catch {
-      setStatus("Clipboard blocked. Try ⌘C from the field.", "err");
+      setStatus(t("statusClipboardBlocked"), "err");
     }
   });
 
@@ -187,6 +203,7 @@ function wireEvents() {
 }
 
 (async function init() {
+  applyStaticI18n();
   wireEvents();
 
   const settings = await loadSettings();

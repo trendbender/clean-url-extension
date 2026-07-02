@@ -1,0 +1,65 @@
+{
+  "appName": {
+    "message": "Clean URL – UTM & Tracking-Parameter entfernen"
+  },
+  "appDesc": {
+    "message": "Entferne UTM, gclid, fbclid und andere Tracking-Parameter mit einem Klick aus URLs. Kopiere und teile saubere Links sofort."
+  },
+  "appTitle": {
+    "message": "Clean URL"
+  },
+  "appSubtitle": {
+    "message": "Link-Reiniger mit einem Klick"
+  },
+  "labelOriginalUrl": {
+    "message": "Original-URL"
+  },
+  "labelCleanUrl": {
+    "message": "Saubere URL"
+  },
+  "removedParams": {
+    "message": "$count$ Parameter entfernt",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "cleaningRules": {
+    "message": "Bereinigungsregeln"
+  },
+  "toggleUtm": {
+    "message": "UTM entfernen (utm_*)"
+  },
+  "toggleClickIds": {
+    "message": "Klick-IDs entfernen (gclid, fbclid, …)"
+  },
+  "toggleRef": {
+    "message": "Ref/Tracking entfernen (ref, igshid, mc_*, …)"
+  },
+  "btnCopyClean": {
+    "message": "Sauber kopieren"
+  },
+  "btnCopyOriginal": {
+    "message": "Original kopieren"
+  },
+  "btnOpenClean": {
+    "message": "Sauber öffnen"
+  },
+  "statusCopiedClean": {
+    "message": "Saubere URL kopiert"
+  },
+  "statusCopiedOriginal": {
+    "message": "Original-URL kopiert"
+  },
+  "statusClipboardBlocked": {
+    "message": "Zwischenablage blockiert. Manuell mit ⌘C aus dem Feld kopieren."
+  },
+  "statusFailsafe": {
+    "message": "Sicherheitsmodus: Original-URL wird verwendet"
+  },
+  "ctxCopyCleanPage": {
+    "message": "Saubere URL kopieren (Seite)"
+  },
+  "ctxCopyCleanLink": {
+    "message": "Saubere URL kopieren (Link)"
+  }
+}

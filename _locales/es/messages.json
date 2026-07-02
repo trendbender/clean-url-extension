@@ -1,0 +1,65 @@
+{
+  "appName": {
+    "message": "Clean URL: elimina UTM y parámetros de rastreo"
+  },
+  "appDesc": {
+    "message": "Elimina UTM, gclid, fbclid y otros parámetros de rastreo de las URL con un clic. Copia y comparte enlaces limpios al instante."
+  },
+  "appTitle": {
+    "message": "Clean URL"
+  },
+  "appSubtitle": {
+    "message": "Limpiador de enlaces con un clic"
+  },
+  "labelOriginalUrl": {
+    "message": "URL original"
+  },
+  "labelCleanUrl": {
+    "message": "URL limpia"
+  },
+  "removedParams": {
+    "message": "$count$ parámetros eliminados",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "cleaningRules": {
+    "message": "Reglas de limpieza"
+  },
+  "toggleUtm": {
+    "message": "Eliminar UTM (utm_*)"
+  },
+  "toggleClickIds": {
+    "message": "Eliminar IDs de clic (gclid, fbclid, …)"
+  },
+  "toggleRef": {
+    "message": "Eliminar ref/rastreo (ref, igshid, mc_*, …)"
+  },
+  "btnCopyClean": {
+    "message": "Copiar limpia"
+  },
+  "btnCopyOriginal": {
+    "message": "Copiar original"
+  },
+  "btnOpenClean": {
+    "message": "Abrir limpia"
+  },
+  "statusCopiedClean": {
+    "message": "URL limpia copiada"
+  },
+  "statusCopiedOriginal": {
+    "message": "URL original copiada"
+  },
+  "statusClipboardBlocked": {
+    "message": "Portapapeles bloqueado. Cópiala manualmente (⌘C) desde el campo."
+  },
+  "statusFailsafe": {
+    "message": "Modo seguro: se usa la URL original"
+  },
+  "ctxCopyCleanPage": {
+    "message": "Copiar URL limpia (página)"
+  },
+  "ctxCopyCleanLink": {
+    "message": "Copiar URL limpia (enlace)"
+  }
+}

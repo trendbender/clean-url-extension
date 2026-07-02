@@ -136,12 +136,12 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.removeAll(() => {
     chrome.contextMenus.create({
       id: "copy_clean_page",
-      title: "Copy Clean URL (page)",
+      title: chrome.i18n.getMessage("ctxCopyCleanPage") || "Copy Clean URL (page)",
       contexts: ["page"],
     });
     chrome.contextMenus.create({
       id: "copy_clean_link",
-      title: "Copy Clean URL (link)",
+      title: chrome.i18n.getMessage("ctxCopyCleanLink") || "Copy Clean URL (link)",
       contexts: ["link"],
     });
   });

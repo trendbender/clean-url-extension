@@ -11,48 +11,48 @@
     <div class="brand">
       <img class="logo" src="icons/icon48.png" alt="Clean URL" />
       <div>
-        <div class="title">Clean URL</div>
-        <div class="subtitle">One-click link cleaner</div>
+        <div class="title" data-i18n="appTitle">Clean URL</div>
+        <div class="subtitle" data-i18n="appSubtitle">One-click link cleaner</div>
       </div>
     </div>
   </header>
 
   <main class="main">
     <section class="block">
-      <label class="label">Original URL</label>
+      <label class="label" data-i18n="labelOriginalUrl">Original URL</label>
       <textarea id="originalUrl" class="textarea" rows="2" readonly></textarea>
     </section>
 
     <section class="block">
-      <label class="label">Clean URL</label>
+      <label class="label" data-i18n="labelCleanUrl">Clean URL</label>
       <textarea id="cleanUrl" class="textarea" rows="2" readonly></textarea>
       <div id="removedHint" class="hint">Removed 0 params</div>
     </section>
 
     <section class="block">
-      <div class="togglesTitle">Cleaning rules</div>
+      <div class="togglesTitle" data-i18n="cleaningRules">Cleaning rules</div>
 
       <label class="toggle">
         <input id="toggleUtm" type="checkbox" />
-        <span class="toggleText">Remove UTM (utm_*)</span>
+        <span class="toggleText" data-i18n="toggleUtm">Remove UTM (utm_*)</span>
       </label>
 
       <label class="toggle">
         <input id="toggleClickIds" type="checkbox" />
-        <span class="toggleText">Remove click IDs (gclid, fbclid, ...)</span>
+        <span class="toggleText" data-i18n="toggleClickIds">Remove click IDs (gclid, fbclid, ...)</span>
       </label>
 
       <label class="toggle">
         <input id="toggleRef" type="checkbox" />
-        <span class="toggleText">Remove ref/tracking (ref, igshid, mc_*, ...)</span>
+        <span class="toggleText" data-i18n="toggleRef">Remove ref/tracking (ref, igshid, mc_*, ...)</span>
       </label>
     </section>
 
     <section class="actions">
-      <button id="btnCopyClean" class="btn primary">Copy Clean</button>
+      <button id="btnCopyClean" class="btn primary" data-i18n="btnCopyClean">Copy Clean</button>
       <div class="actionsRow">
-        <button id="btnCopyOriginal" class="btn ghost">Copy Original</button>
-        <button id="btnOpenClean" class="btn ghost">Open Clean</button>
+        <button id="btnCopyOriginal" class="btn ghost" data-i18n="btnCopyOriginal">Copy Original</button>
+        <button id="btnOpenClean" class="btn ghost" data-i18n="btnOpenClean">Open Clean</button>
       </div>
       <div id="status" class="status" aria-live="polite"></div>
     </section>

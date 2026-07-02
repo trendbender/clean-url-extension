@@ -1,0 +1,65 @@
+{
+  "appName": {
+    "message": "Clean URL – 移除 UTM 和跟踪参数"
+  },
+  "appDesc": {
+    "message": "一键从网址中移除 UTM、gclid、fbclid 等跟踪参数。即时复制并分享干净的链接。"
+  },
+  "appTitle": {
+    "message": "Clean URL"
+  },
+  "appSubtitle": {
+    "message": "一键清理链接"
+  },
+  "labelOriginalUrl": {
+    "message": "原始网址"
+  },
+  "labelCleanUrl": {
+    "message": "干净网址"
+  },
+  "removedParams": {
+    "message": "已移除 $count$ 个参数",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "cleaningRules": {
+    "message": "清理规则"
+  },
+  "toggleUtm": {
+    "message": "移除 UTM (utm_*)"
+  },
+  "toggleClickIds": {
+    "message": "移除点击 ID (gclid、fbclid …)"
+  },
+  "toggleRef": {
+    "message": "移除 ref/跟踪参数 (ref、igshid、mc_* …)"
+  },
+  "btnCopyClean": {
+    "message": "复制干净网址"
+  },
+  "btnCopyOriginal": {
+    "message": "复制原始网址"
+  },
+  "btnOpenClean": {
+    "message": "打开干净网址"
+  },
+  "statusCopiedClean": {
+    "message": "已复制干净网址"
+  },
+  "statusCopiedOriginal": {
+    "message": "已复制原始网址"
+  },
+  "statusClipboardBlocked": {
+    "message": "剪贴板被阻止。请在输入框中手动复制 (⌘C)。"
+  },
+  "statusFailsafe": {
+    "message": "安全模式：使用原始网址"
+  },
+  "ctxCopyCleanPage": {
+    "message": "复制干净网址（页面）"
+  },
+  "ctxCopyCleanLink": {
+    "message": "复制干净网址（链接）"
+  }
+}

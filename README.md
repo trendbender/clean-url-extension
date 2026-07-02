@@ -10,6 +10,7 @@ It helps you quickly clean links by removing UTM tags, click IDs, and other comm
 - Remove click IDs (`gclid`, `fbclid`, etc.)
 - Remove common ref / tracking params
 - One-click clean & copy
+- Available in 7 languages (English, Русский, Español, Deutsch, Français, Português BR, 简体中文)
 - Works fully offline
 - No tracking, no analytics, no data collection
 
