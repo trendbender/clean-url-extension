@@ -1,0 +1,27 @@
+<!-- @dsCard group="Colors" viewport="700x180" name="Core palette" subtitle="Background, surface, text & accents (dark theme)" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font); background: var(--backdrop); color: var(--text); padding: 18px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .sw { width: 150px; }
+  .chip { height: 56px; border-radius: 12px; border: 1px solid var(--border); }
+  .name { font-size: 12px; font-weight: 650; margin-top: 8px; }
+  .hex { font-size: 11px; color: var(--muted); font-family: var(--font-mono); margin-top: 2px; }
+  .role { font-size: 11px; color: var(--muted); margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--bg)"></div><div class="name">Background</div><div class="hex">#0b1220</div><div class="role">App backdrop</div></div>
+    <div class="sw"><div class="chip" style="background:var(--card)"></div><div class="name">Card</div><div class="hex">#0f1a2e</div><div class="role">Raised surface</div></div>
+    <div class="sw"><div class="chip" style="background:var(--text)"></div><div class="name">Text</div><div class="hex">#e9eefc</div><div class="role">Primary · AAA on bg</div></div>
+    <div class="sw"><div class="chip" style="background:var(--muted)"></div><div class="name">Muted</div><div class="hex">#97a7c8</div><div class="role">Labels · AA on bg</div></div>
+    <div class="sw"><div class="chip" style="background:var(--accent)"></div><div class="name">Accent</div><div class="hex">#5aa8ff</div><div class="role">Blue · focus/links</div></div>
+    <div class="sw"><div class="chip" style="background:var(--accent2)"></div><div class="name">Accent 2</div><div class="hex">#7cf0c0</div><div class="role">Mint · success</div></div>
+  </div>
+</body>
+</html>

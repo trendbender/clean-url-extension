@@ -1,0 +1,25 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Semantic & status" subtitle="Danger, badge, and status-line roles" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font); background: var(--backdrop); color: var(--text); padding: 18px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-start; }
+  .sw { width: 150px; }
+  .chip { height: 48px; border-radius: 12px; border: 1px solid var(--border); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; }
+  .name { font-size: 12px; font-weight: 650; margin-top: 8px; }
+  .hex { font-size: 11px; color: var(--muted); font-family: var(--font-mono); margin-top: 2px; }
+  .role { font-size: 11px; color: var(--muted); margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--danger); color:#07101d"></div><div class="name">Danger</div><div class="hex">#ff6b6b</div><div class="role">Error / fail-safe line</div></div>
+    <div class="sw"><div class="chip" style="background:var(--badge); color:#07101d">✓</div><div class="name">Badge</div><div class="hex">#22c55e</div><div class="role">Toolbar success badge</div></div>
+    <div class="sw"><div class="chip" style="background:var(--accent2); color:#07101d"></div><div class="name">Success</div><div class="hex">#7cf0c0</div><div class="role">Status = mint</div></div>
+    <div class="sw"><div class="chip" style="background:var(--muted); color:#0b1220"></div><div class="name">Neutral</div><div class="hex">#97a7c8</div><div class="role">Status = muted</div></div>
+  </div>
+</body>
+</html>

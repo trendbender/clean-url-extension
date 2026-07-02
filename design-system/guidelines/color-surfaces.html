@@ -1,0 +1,25 @@
+<!-- @dsCard group="Colors" viewport="700x180" name="Translucent surfaces & borders" subtitle="Glass fills over the navy backdrop" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font); background: var(--backdrop); color: var(--text); padding: 18px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .sw { width: 158px; }
+  .chip { height: 56px; border-radius: 12px; border: 1px solid var(--border); backdrop-filter: blur(10px); }
+  .name { font-size: 12px; font-weight: 650; margin-top: 8px; }
+  .hex { font-size: 10.5px; color: var(--muted); font-family: var(--font-mono); margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--card-glass)"></div><div class="name">Card glass</div><div class="hex">rgba(15,26,46,.72)</div></div>
+    <div class="sw"><div class="chip" style="background:var(--field-fill)"></div><div class="name">Field fill</div><div class="hex">rgba(0,0,0,.22)</div></div>
+    <div class="sw"><div class="chip" style="background:var(--toggle-fill)"></div><div class="name">Toggle fill</div><div class="hex">rgba(0,0,0,.14)</div></div>
+    <div class="sw"><div class="chip" style="background:var(--ghost-fill)"></div><div class="name">Ghost fill</div><div class="hex">rgba(0,0,0,.18)</div></div>
+    <div class="sw"><div class="chip" style="background:transparent; border:1px solid var(--border)"></div><div class="name">Border</div><div class="hex">rgba(255,255,255,.10)</div></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!-- @dsCard group="Components" viewport="700x210" name="Feedback — Status, Hint & Badge" subtitle="Status line states, removed-count hint, toolbar badge" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; font-family: var(--font); background: var(--backdrop); color: var(--text); padding: 20px; }
+  .cols { display: grid; grid-template-columns: 280px 200px 160px; gap: 24px; align-items: start; }
+  .lbl { font-size: 11px; color: var(--muted); font-family: var(--font-mono); margin-bottom: 8px; }
+  .badge-row { display:flex; gap: 16px; align-items:center; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { StatusLine, RemovedHint, ToolbarBadge } = window.CleanURLDesignSystem_814f5d;
+    function Demo() {
+      return (
+        <div className="cols">
+          <div>
+            <div className="lbl">StatusLine — neutral / success / error</div>
+            <StatusLine kind="neutral">Ready</StatusLine>
+            <StatusLine kind="success">Copied clean URL</StatusLine>
+            <StatusLine kind="error">Fail-safe: using original URL</StatusLine>
+          </div>
+          <div>
+            <div className="lbl">RemovedHint — 0 / N</div>
+            <RemovedHint count={0} />
+            <RemovedHint count={5} />
+            <RemovedHint count={1} />
+          </div>
+          <div>
+            <div className="lbl">ToolbarBadge</div>
+            <div className="badge-row">
+              <ToolbarBadge text="✓" />
+              <ToolbarBadge text="!" />
+            </div>
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+  </script>
+</body>
+</html>

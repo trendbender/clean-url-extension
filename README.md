@@ -16,6 +16,10 @@ It helps you quickly clean links by removing UTM tags, click IDs, and other comm
 - Works fully offline
 - No tracking, no analytics, no data collection
 
+## Design system
+
+The full design system (tokens, components, guidelines, icon) lives in [`design-system/`](design-system/). The extension consumes its tokens directly from [`tokens/`](tokens/).
+
 ## Privacy
 
 Clean URL does not collect, store, or transmit any user data.

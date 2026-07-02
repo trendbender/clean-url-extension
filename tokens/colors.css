@@ -1,0 +1,75 @@
+/* Clean URL — Color tokens
+   Dark glassmorphism. Values are copied verbatim from the extension's popup.css :root.
+   Base palette + semantic aliases. */
+
+:root {
+  /* ---- Base palette ---- */
+  --bg:       #0b1220;              /* near-black navy app background */
+  --card:     #0f1a2e;             /* raised card base color */
+  --text:     #e9eefc;             /* primary text */
+  --muted:    #97a7c8;             /* secondary text / labels */
+  --border:   rgba(255, 255, 255, 0.10);
+
+  --accent:   #5aa8ff;            /* primary blue */
+  --accent2:  #7cf0c0;           /* mint / teal */
+  --danger:   #ff6b6b;           /* error / fail-safe red */
+  --badge:    #22c55e;          /* toolbar badge green (✓) */
+
+  /* ---- Translucent surfaces (glassmorphism) ---- */
+  --card-glass:   rgba(15, 26, 46, 0.72);   /* blurred card fill */
+  --field-fill:   rgba(0, 0, 0, 0.22);      /* read-only URL field */
+  --toggle-fill:  rgba(0, 0, 0, 0.14);      /* toggle pill */
+  --ghost-fill:   rgba(0, 0, 0, 0.18);      /* ghost button */
+  --toggle-border: rgba(255, 255, 255, 0.07);
+  --field-border:  rgba(255, 255, 255, 0.12);
+  --btn-border:    rgba(255, 255, 255, 0.14);
+  --btn-border-strong: rgba(255, 255, 255, 0.25);
+
+  /* ---- Focus ---- */
+  --focus-ring:  rgba(90, 168, 255, 0.60);  /* #5aa8ff @ 60% — input focus border */
+
+  /* ---- Signature gradients ---- */
+  --grad-primary: linear-gradient(135deg, rgba(90, 168, 255, 0.95), rgba(124, 240, 192, 0.60)); /* @kind color */
+  --grad-logo:    linear-gradient(135deg, #5aa8ff, #7cf0c0); /* @kind color */
+
+  /* Body backdrop: two soft radial glows over --bg */
+  --glow-blue: radial-gradient(1200px 300px at 20% -10%, rgba(90, 168, 255, 0.35), transparent 55%); /* @kind color */
+  --glow-mint: radial-gradient(1200px 300px at 80% 0%, rgba(124, 240, 192, 0.22), transparent 55%); /* @kind color */
+  --backdrop:  var(--glow-blue), var(--glow-mint), var(--bg); /* @kind color */
+
+  /* ---- Semantic text-on-gradient ---- */
+  --on-primary: #07101d;   /* near-black text on gradient button */
+
+  /* ---- Status ---- */
+  --status-neutral: var(--muted);
+  --status-success: var(--accent2);
+  --status-error:   var(--danger);
+}
+
+/* ---- Optional light-theme mapping (developer reference, not shipped in popup) ---- */
+[data-theme="light"] {
+  --bg:       #f4f7ff;
+  --card:     #ffffff;
+  --text:     #0b1220;
+  --muted:    #55628a;
+  --border:   rgba(11, 18, 32, 0.12);
+
+  --accent:   #2f7ff0;
+  --accent2:  #16c79a;
+  --danger:   #e23b3b;
+  --badge:    #16a34a;
+
+  --card-glass:   rgba(255, 255, 255, 0.80);
+  --field-fill:   rgba(11, 18, 32, 0.04);
+  --toggle-fill:  rgba(11, 18, 32, 0.03);
+  --ghost-fill:   rgba(11, 18, 32, 0.03);
+  --toggle-border: rgba(11, 18, 32, 0.08);
+  --field-border:  rgba(11, 18, 32, 0.12);
+  --btn-border:    rgba(11, 18, 32, 0.12);
+
+  --focus-ring:  rgba(47, 127, 240, 0.55);
+  --on-primary:  #07101d;
+  --backdrop:    radial-gradient(1200px 300px at 20% -10%, rgba(47,127,240,0.14), transparent 55%),
+                 radial-gradient(1200px 300px at 80% 0%, rgba(22,199,154,0.12), transparent 55%),
+                 var(--bg);
+}

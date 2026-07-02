@@ -1,0 +1,35 @@
+/* Clean URL — Spacing, radius & elevation tokens
+   Derived from the popup's real paddings/margins. */
+
+:root {
+  /* ---- Spacing scale ---- */
+  --space-2:  2px;
+  --space-6:  6px;
+  --space-8:  8px;
+  --space-10: 10px;   /* card padding, gaps */
+  --space-14: 14px;   /* popup edge padding */
+
+  /* Popup geometry */
+  --popup-width:      360px;
+  --popup-pad-x:      14px;
+  --header-pad:       14px 14px 10px;
+  --card-gap:         10px;   /* vertical gap between cards */
+
+  /* ---- Radius ---- */
+  --radius:        14px;  /* cards, primary button */
+  --radius-input:  12px;  /* text fields, toggle pills */
+  --radius-logo:   10px;  /* app-icon corners at 34px */
+
+  /* ---- Elevation ---- */
+  --shadow:      0 10px 30px rgba(0, 0, 0, 0.35);  /* logo / hero */
+  --shadow-card: 0 8px 22px rgba(0, 0, 0, 0.22);   /* glass cards */
+
+  /* ---- Glass recipe ---- */
+  --blur: blur(10px);  /* @kind other */
+
+  /* ---- Motion ---- */
+  --ease:            cubic-bezier(0.2, 0.6, 0.2, 1); /* @kind other */
+  --dur-press:       0.05s;  /* @kind other */
+  --dur-hover:       0.12s;  /* @kind other */
+  --press-translate: translateY(1px); /* @kind other */
+}

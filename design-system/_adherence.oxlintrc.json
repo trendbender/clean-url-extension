@@ -1,0 +1,247 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/buttons/**",
+              "components/feedback/**",
+              "components/forms/**",
+              "components/layout/**",
+              "ui_kits/popup/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='BrandRow'] > JSXAttribute > JSXIdentifier[name!=/^(?:title|subtitle|logoSrc|style|key|ref|className|style|children)$/]",
+        "message": "<BrandRow> doesn't accept that prop. Declared props: title, subtitle, logoSrc, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|children|disabled|fullWidth|onClick|style|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, children, disabled, fullWidth, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|ghost)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'ghost'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|style|key|ref|className|style|children)$/]",
+        "message": "<Card> doesn't accept that prop. Declared props: children, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='RemovedHint'] > JSXAttribute > JSXIdentifier[name!=/^(?:count|style|key|ref|className|style|children)$/]",
+        "message": "<RemovedHint> doesn't accept that prop. Declared props: count, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='StatusLine'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|kind|style|key|ref|className|style|children)$/]",
+        "message": "<StatusLine> doesn't accept that prop. Declared props: children, kind, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='StatusLine'] > JSXAttribute[name.name='kind'] > Literal[value!=/^(?:neutral|success|error)$/]",
+        "message": "<StatusLine> kind must be one of 'neutral' | 'success' | 'error'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Toggle'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|checked|disabled|onChange|style|key|ref|className|style|children)$/]",
+        "message": "<Toggle> doesn't accept that prop. Declared props: label, checked, disabled, onChange, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ToolbarBadge'] > JSXAttribute > JSXIdentifier[name!=/^(?:text|style|key|ref|className|style|children)$/]",
+        "message": "<ToolbarBadge> doesn't accept that prop. Declared props: text, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='UrlField'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|value|rows|id|style|key|ref|className|style|children)$/]",
+        "message": "<UrlField> doesn't accept that prop. Declared props: label, value, rows, id, style."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "BrandRow": {
+        "replaces": []
+      },
+      "Button": {
+        "replaces": []
+      },
+      "Card": {
+        "replaces": []
+      },
+      "RemovedHint": {
+        "replaces": []
+      },
+      "StatusLine": {
+        "replaces": []
+      },
+      "Toggle": {
+        "replaces": []
+      },
+      "ToolbarBadge": {
+        "replaces": []
+      },
+      "UrlField": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--accent",
+      "--accent2",
+      "--backdrop",
+      "--badge",
+      "--bg",
+      "--blur",
+      "--border",
+      "--btn-border",
+      "--btn-border-strong",
+      "--card",
+      "--card-gap",
+      "--card-glass",
+      "--danger",
+      "--dur-hover",
+      "--dur-press",
+      "--ease",
+      "--field-border",
+      "--field-fill",
+      "--focus-ring",
+      "--font",
+      "--font-mono",
+      "--fs-body",
+      "--fs-section",
+      "--fs-small",
+      "--fs-title",
+      "--fs-toggle",
+      "--fw-button",
+      "--fw-medium",
+      "--fw-regular",
+      "--fw-section",
+      "--fw-title",
+      "--ghost-fill",
+      "--glow-blue",
+      "--glow-mint",
+      "--grad-logo",
+      "--grad-primary",
+      "--header-pad",
+      "--lh-body",
+      "--lh-tight",
+      "--lh-title",
+      "--muted",
+      "--on-primary",
+      "--popup-pad-x",
+      "--popup-width",
+      "--press-translate",
+      "--radius",
+      "--radius-input",
+      "--radius-logo",
+      "--shadow",
+      "--shadow-card",
+      "--space-10",
+      "--space-14",
+      "--space-2",
+      "--space-6",
+      "--space-8",
+      "--status-error",
+      "--status-neutral",
+      "--status-success",
+      "--text",
+      "--toggle-border",
+      "--toggle-fill"
+    ],
+    "tokenKinds": {
+      "--bg": "color",
+      "--card": "color",
+      "--text": "font",
+      "--muted": "color",
+      "--border": "color",
+      "--accent": "color",
+      "--accent2": "color",
+      "--danger": "color",
+      "--badge": "color",
+      "--card-glass": "color",
+      "--field-fill": "color",
+      "--toggle-fill": "color",
+      "--ghost-fill": "color",
+      "--toggle-border": "color",
+      "--field-border": "color",
+      "--btn-border": "color",
+      "--btn-border-strong": "color",
+      "--focus-ring": "color",
+      "--grad-primary": "color",
+      "--grad-logo": "color",
+      "--glow-blue": "color",
+      "--glow-mint": "color",
+      "--backdrop": "color",
+      "--on-primary": "color",
+      "--status-neutral": "color",
+      "--status-success": "color",
+      "--status-error": "color",
+      "--font": "font",
+      "--font-mono": "font",
+      "--fs-title": "spacing",
+      "--fs-section": "spacing",
+      "--fs-body": "spacing",
+      "--fs-toggle": "spacing",
+      "--fs-small": "spacing",
+      "--fw-regular": "font",
+      "--fw-medium": "font",
+      "--fw-section": "font",
+      "--fw-title": "font",
+      "--fw-button": "font",
+      "--lh-title": "font",
+      "--lh-body": "font",
+      "--lh-tight": "font",
+      "--space-2": "spacing",
+      "--space-6": "spacing",
+      "--space-8": "spacing",
+      "--space-10": "spacing",
+      "--space-14": "spacing",
+      "--popup-width": "spacing",
+      "--popup-pad-x": "spacing",
+      "--header-pad": "spacing",
+      "--card-gap": "spacing",
+      "--radius": "radius",
+      "--radius-input": "radius",
+      "--radius-logo": "radius",
+      "--shadow": "shadow",
+      "--shadow-card": "shadow",
+      "--blur": "other",
+      "--ease": "other",
+      "--dur-press": "other",
+      "--dur-hover": "other",
+      "--press-translate": "other"
+    },
+    "fontFamilies": []
+  }
+}
