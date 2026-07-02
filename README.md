@@ -8,8 +8,8 @@ It helps you quickly clean links by removing UTM tags, click IDs, and other comm
 
 - Remove UTM parameters (`utm_*`)
 - Remove click IDs (`gclid`, `fbclid`, etc.)
-- Remove common ref / tracking params
-- Site-specific cleanup (LinkedIn `lipi`/`trk`, Google Search telemetry, YouTube, Amazon)
+- Remove 50+ known ad / analytics parameters (`srsltid`, `igshid`, `mkt_tok`, HubSpot, Matomo, …)
+- Site-specific cleanup (LinkedIn, Google, YouTube, Amazon, AliExpress, X/Twitter, TikTok, Spotify, Reddit, eBay, Facebook)
 - Strip text-fragment directives (`#:~:text=`)
 - One-click clean & copy
 - Available in 7 languages (English, Русский, Español, Deutsch, Français, Português BR, 简体中文)
