@@ -35,6 +35,9 @@
   "toggleRef": {
     "message": "Ref/Tracking entfernen (ref, igshid, mc_*, …)"
   },
+  "toggleTextFragments": {
+    "message": "Textfragmente entfernen (#:~:text=)"
+  },
   "btnCopyClean": {
     "message": "Sauber kopieren"
   },
