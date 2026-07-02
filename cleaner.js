@@ -9,8 +9,8 @@ export const DEFAULT_SETTINGS = {
 };
 
 const UTM_PREFIX = "utm_";
-const CLICK_IDS = new Set(["gclid","gbraid","wbraid","fbclid","msclkid","ttclid","yclid","dclid","gclsrc"]);
-const REF_TRACKING = new Set(["ref","ref_src","igshid","mc_cid","mc_eid","vero_id","s_cid","gad_source","gad_campaignid","adid","campaignid","term"]);
+const CLICK_IDS = new Set(["gclid","gbraid","wbraid","fbclid","msclkid","ttclid","yclid","dclid","gclsrc","srsltid"]);
+const REF_TRACKING = new Set(["ref","ref_src","igshid","mc_cid","mc_eid","vero_id","s_cid","gad_source","gad_campaignid","adid","campaignid","term","_openstat","_hsenc","_hsmi","mkt_tok"]);
 // Cross-site trackers safe to strip anywhere (LinkedIn lipi/lici/trk are page-instance & source trackers).
 const SITE_TRACKING = new Set(["lipi","lici","trk","trkinfo","refid","midtoken","midsig","otptoken","originalreferer"]);
 
