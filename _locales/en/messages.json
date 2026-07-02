@@ -1,0 +1,68 @@
+{
+  "appName": {
+    "message": "Clean URL – Remove UTM & Tracking Parameters",
+    "description": "Extension name shown in the store and browser."
+  },
+  "appDesc": {
+    "message": "Remove UTM, gclid, fbclid and other tracking parameters from URLs in one click. Copy and share clean links instantly.",
+    "description": "Extension description."
+  },
+  "appTitle": {
+    "message": "Clean URL",
+    "description": "Brand title in the popup header and toolbar tooltip."
+  },
+  "appSubtitle": {
+    "message": "One-click link cleaner"
+  },
+  "labelOriginalUrl": {
+    "message": "Original URL"
+  },
+  "labelCleanUrl": {
+    "message": "Clean URL"
+  },
+  "removedParams": {
+    "message": "Removed $count$ params",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "cleaningRules": {
+    "message": "Cleaning rules"
+  },
+  "toggleUtm": {
+    "message": "Remove UTM (utm_*)"
+  },
+  "toggleClickIds": {
+    "message": "Remove click IDs (gclid, fbclid, …)"
+  },
+  "toggleRef": {
+    "message": "Remove ref/tracking (ref, igshid, mc_*, …)"
+  },
+  "btnCopyClean": {
+    "message": "Copy Clean"
+  },
+  "btnCopyOriginal": {
+    "message": "Copy Original"
+  },
+  "btnOpenClean": {
+    "message": "Open Clean"
+  },
+  "statusCopiedClean": {
+    "message": "Copied clean URL"
+  },
+  "statusCopiedOriginal": {
+    "message": "Copied original URL"
+  },
+  "statusClipboardBlocked": {
+    "message": "Clipboard blocked. Copy it manually (⌘C) from the field."
+  },
+  "statusFailsafe": {
+    "message": "Fail-safe: using original URL"
+  },
+  "ctxCopyCleanPage": {
+    "message": "Copy Clean URL (page)"
+  },
+  "ctxCopyCleanLink": {
+    "message": "Copy Clean URL (link)"
+  }
+}

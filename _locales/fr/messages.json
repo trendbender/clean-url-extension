@@ -1,0 +1,65 @@
+{
+  "appName": {
+    "message": "Clean URL – Supprimer UTM et paramètres de suivi"
+  },
+  "appDesc": {
+    "message": "Supprimez les UTM, gclid, fbclid et autres paramètres de suivi des URL en un clic. Copiez et partagez des liens propres instantanément."
+  },
+  "appTitle": {
+    "message": "Clean URL"
+  },
+  "appSubtitle": {
+    "message": "Nettoyeur de liens en un clic"
+  },
+  "labelOriginalUrl": {
+    "message": "URL d’origine"
+  },
+  "labelCleanUrl": {
+    "message": "URL propre"
+  },
+  "removedParams": {
+    "message": "$count$ paramètres supprimés",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "cleaningRules": {
+    "message": "Règles de nettoyage"
+  },
+  "toggleUtm": {
+    "message": "Supprimer UTM (utm_*)"
+  },
+  "toggleClickIds": {
+    "message": "Supprimer les ID de clic (gclid, fbclid, …)"
+  },
+  "toggleRef": {
+    "message": "Supprimer ref/suivi (ref, igshid, mc_*, …)"
+  },
+  "btnCopyClean": {
+    "message": "Copier propre"
+  },
+  "btnCopyOriginal": {
+    "message": "Copier l’original"
+  },
+  "btnOpenClean": {
+    "message": "Ouvrir propre"
+  },
+  "statusCopiedClean": {
+    "message": "URL propre copiée"
+  },
+  "statusCopiedOriginal": {
+    "message": "URL d’origine copiée"
+  },
+  "statusClipboardBlocked": {
+    "message": "Presse-papiers bloqué. Copiez-la manuellement (⌘C) depuis le champ."
+  },
+  "statusFailsafe": {
+    "message": "Mode sécurisé : URL d’origine utilisée"
+  },
+  "ctxCopyCleanPage": {
+    "message": "Copier l’URL propre (page)"
+  },
+  "ctxCopyCleanLink": {
+    "message": "Copier l’URL propre (lien)"
+  }
+}

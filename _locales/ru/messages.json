@@ -1,0 +1,65 @@
+{
+  "appName": {
+    "message": "Clean URL — удаление UTM и трекинг-параметров"
+  },
+  "appDesc": {
+    "message": "Удаляйте UTM, gclid, fbclid и другие трекинг-параметры из ссылок в один клик. Мгновенно копируйте и делитесь чистыми ссылками."
+  },
+  "appTitle": {
+    "message": "Clean URL"
+  },
+  "appSubtitle": {
+    "message": "Очистка ссылок в один клик"
+  },
+  "labelOriginalUrl": {
+    "message": "Исходная ссылка"
+  },
+  "labelCleanUrl": {
+    "message": "Чистая ссылка"
+  },
+  "removedParams": {
+    "message": "Удалено параметров: $count$",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "cleaningRules": {
+    "message": "Правила очистки"
+  },
+  "toggleUtm": {
+    "message": "Удалять UTM (utm_*)"
+  },
+  "toggleClickIds": {
+    "message": "Удалять click ID (gclid, fbclid, …)"
+  },
+  "toggleRef": {
+    "message": "Удалять ref/трекинг (ref, igshid, mc_*, …)"
+  },
+  "btnCopyClean": {
+    "message": "Копировать чистую"
+  },
+  "btnCopyOriginal": {
+    "message": "Копировать исходную"
+  },
+  "btnOpenClean": {
+    "message": "Открыть чистую"
+  },
+  "statusCopiedClean": {
+    "message": "Чистая ссылка скопирована"
+  },
+  "statusCopiedOriginal": {
+    "message": "Исходная ссылка скопирована"
+  },
+  "statusClipboardBlocked": {
+    "message": "Буфер обмена заблокирован. Скопируйте вручную (⌘C) из поля."
+  },
+  "statusFailsafe": {
+    "message": "Защита: используется исходная ссылка"
+  },
+  "ctxCopyCleanPage": {
+    "message": "Копировать чистую ссылку (страница)"
+  },
+  "ctxCopyCleanLink": {
+    "message": "Копировать чистую ссылку (ссылка)"
+  }
+}
