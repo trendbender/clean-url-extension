@@ -1,0 +1,10 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Clean URL">
+  <defs>
+    <linearGradient id="cuGrad" x1="8" y1="8" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5aa8ff"></stop>
+      <stop offset="1" stop-color="#7cf0c0"></stop>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="128" height="128" rx="30" fill="url(#cuGrad)"></rect>
+  <text x="64" y="65" text-anchor="middle" dominant-baseline="central" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="64" font-weight="800" letter-spacing="-3" fill="#07101d">CU</text>
+</svg>

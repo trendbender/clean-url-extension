@@ -1,0 +1,52 @@
+<!-- @dsCard group="Clean URL Popup" viewport="1200x780" name="Assembled popup — 3 states" subtitle="Default · cleaned (5 params) · copied, plus context menu" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Clean URL — Popup UI Kit</title>
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; font-family: var(--font); background: #070c16; color: var(--text); padding: 28px; }
+  .rail { display: flex; gap: 34px; align-items: flex-start; flex-wrap: wrap; }
+  .col { display: flex; flex-direction: column; gap: 12px; }
+  .cap { font-size: 12px; color: var(--muted); }
+  .cap b { color: var(--text); font-weight: 700; font-size: 13px; display:block; margin-bottom: 2px; }
+  .ctx { margin-top: 26px; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" src="ContextMenu.jsx"></script>
+  <script type="text/babel" src="PopupScreen.jsx"></script>
+  <script type="text/babel">
+    function Kit() {
+      const { PopupScreen, ContextMenu } = window;
+      return (
+        <div className="rail">
+          <div className="col">
+            <div className="cap"><b>a · Default</b>No active URL — actions disabled</div>
+            <PopupScreen scenario="empty" />
+          </div>
+          <div className="col">
+            <div className="cap"><b>b · Cleaned</b>Dirty URL, "Removed 5 params"</div>
+            <PopupScreen scenario="cleaned" />
+          </div>
+          <div className="col">
+            <div className="cap"><b>c · Copied</b>Success status = mint</div>
+            <PopupScreen scenario="copied" />
+          </div>
+          <div className="col ctx">
+            <div className="cap"><b>Context menu</b>Right-click → page / link</div>
+            <ContextMenu />
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById("root")).render(<Kit/>);
+  </script>
+</body>
+</html>

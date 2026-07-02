@@ -1,0 +1,23 @@
+<!-- @dsCard group="Colors" viewport="700x180" name="Signature gradients & glows" subtitle="Primary button, logo, and body backdrop" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--text); padding: 18px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .sw { width: 200px; }
+  .chip { height: 64px; border-radius: 14px; border: 1px solid var(--border); }
+  .name { font-size: 12px; font-weight: 650; margin-top: 8px; }
+  .hex { font-size: 10.5px; color: var(--muted); font-family: var(--font-mono); margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--grad-primary)"></div><div class="name">Primary gradient</div><div class="hex">135° · #5aa8ff → #7cf0c0</div></div>
+    <div class="sw"><div class="chip" style="background:var(--grad-logo)"></div><div class="name">Logo gradient</div><div class="hex">135° · full-saturation</div></div>
+    <div class="sw"><div class="chip" style="background:var(--backdrop)"></div><div class="name">Body backdrop</div><div class="hex">2 radial glows over #0b1220</div></div>
+  </div>
+</body>
+</html>

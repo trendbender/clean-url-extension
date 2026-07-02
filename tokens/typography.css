@@ -1,0 +1,28 @@
+/* Clean URL — Typography tokens
+   System UI sans stack (no webfonts — matches the extension exactly).
+   Scale is tuned for a dense 360px popup. */
+
+:root {
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+          "Noto Sans", "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, Menlo, Consolas, monospace;
+
+  /* ---- Type scale (px) ---- */
+  --fs-title:    16px;   /* app title */
+  --fs-section:  13px;   /* section heading (Cleaning rules) */
+  --fs-body:     13px;   /* body / toggle text baseline */
+  --fs-toggle:   12.5px; /* toggle label */
+  --fs-small:    12px;   /* subtitle, labels, hints, status, URL fields */
+
+  /* ---- Weights ---- */
+  --fw-regular:  400;   /* @kind font */
+  --fw-medium:   600;   /* @kind font */
+  --fw-section:  650;   /* @kind font */
+  --fw-title:    700;   /* @kind font */
+  --fw-button:   800;   /* @kind font */
+
+  /* ---- Line heights ---- */
+  --lh-title:  1.1;    /* @kind font */
+  --lh-body:   1.35;   /* @kind font */
+  --lh-tight:  1.2;    /* @kind font */
+}

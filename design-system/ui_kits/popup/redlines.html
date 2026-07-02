@@ -1,0 +1,135 @@
+<!-- @dsCard group="Clean URL Popup" viewport="900x940" name="Redlines — popup spec" subtitle="Paddings, margins, sizes & radii annotated" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Clean URL — Redlines</title>
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font); background: #070c16; color: var(--text); padding: 40px 60px; }
+  .stage { position: relative; width: 360px; }
+
+  /* --- exact popup recreation (from popup.css) --- */
+  .popup {
+    width: 360px;
+    background: var(--backdrop);
+    color: var(--text);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .header { padding: 14px 14px 10px; }
+  .brand { display: flex; gap: 10px; align-items: center; }
+  .logo { width: 34px; height: 34px; border-radius: 10px; box-shadow: var(--shadow); outline: 1px solid rgba(255,255,255,.28); outline-offset: -1px; }
+  .title { font-size: 16px; font-weight: 700; line-height: 1.1; }
+  .subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .main { padding: 0 14px 14px; }
+  .block { background: var(--card-glass); border: 1px solid var(--border); border-radius: 14px; padding: 10px; margin-bottom: 10px; box-shadow: var(--shadow-card); backdrop-filter: blur(10px); }
+  .label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .textarea { width: 100%; border: 1px solid var(--field-border); border-radius: 12px; background: var(--field-fill); color: var(--text); padding: 9px 10px; font-size: 12px; line-height: 1.35; min-height: 44px; word-break: break-all; box-sizing: border-box; }
+  .hint { margin-top: 8px; font-size: 12px; color: var(--accent2); }
+  .togglesTitle { font-size: 13px; font-weight: 650; margin-bottom: 8px; }
+  .toggle { display: flex; gap: 10px; align-items: center; padding: 8px 6px; border-radius: 12px; border: 1px solid var(--toggle-border); background: var(--toggle-fill); margin-bottom: 8px; }
+  .toggle input { width: 16px; height: 16px; accent-color: var(--accent); margin: 0; }
+  .toggleText { font-size: 12.5px; }
+  .btn { border-radius: 14px; border: 1px solid var(--btn-border); background: var(--ghost-fill); color: var(--text); padding: 10px 12px; font-size: 13px; width: 100%; box-sizing: border-box; }
+  .primary { background: var(--grad-primary); border-color: var(--btn-border-strong); color: var(--on-primary); font-weight: 800; }
+  .actionsRow { display: flex; gap: 8px; margin-top: 8px; }
+
+  /* --- annotation system --- */
+  .an { position: absolute; font-family: var(--font-mono); font-size: 11px; color: #ff9db1; white-space: nowrap; }
+  .tick { position: absolute; border-color: var(--danger); }
+  /* vertical dimension bracket on the left */
+  .dim-l { position: absolute; left: -34px; width: 22px; border-left: 1px dashed var(--danger); }
+  .dim-l::before, .dim-l::after { content: ""; position: absolute; left: 0; width: 8px; border-top: 1px solid var(--danger); }
+  .dim-l::before { top: 0; } .dim-l::after { bottom: 0; }
+  .dim-l span { position: absolute; left: -6px; top: 50%; transform: translate(-100%,-50%); color: #ff9db1; font-family: var(--font-mono); font-size: 11px; }
+  /* right side callout */
+  .callout { position: absolute; left: 400px; font-family: var(--font-mono); font-size: 11px; color: #ff9db1; white-space: nowrap; }
+  .callout b { color: #ffd0da; }
+  .lead { position: absolute; border-top: 1px dashed rgba(255,107,107,.55); height: 0; }
+  .legend { position: absolute; left: 400px; top: 590px; width: 340px; color: var(--muted); font-size: 12px; line-height: 1.7; font-family: var(--font); }
+  .legend b { color: var(--text); }
+  .legend code { color: #ff9db1; font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="popup">
+      <header class="header">
+        <div class="brand">
+          <img class="logo" src="../../assets/logo-cu.svg" alt="Clean URL" />
+          <div>
+            <div class="title">Clean URL</div>
+            <div class="subtitle">One-click link cleaner</div>
+          </div>
+        </div>
+      </header>
+      <main class="main">
+        <section class="block">
+          <label class="label">Original URL</label>
+          <div class="textarea">https://example.com/article?utm_source=news&amp;gclid=abc</div>
+        </section>
+        <section class="block">
+          <label class="label">Clean URL</label>
+          <div class="textarea">https://example.com/article</div>
+          <div class="hint">Removed 5 params</div>
+        </section>
+        <section class="block">
+          <div class="togglesTitle">Cleaning rules</div>
+          <label class="toggle"><input type="checkbox" checked /><span class="toggleText">Remove UTM (utm_*)</span></label>
+          <label class="toggle"><input type="checkbox" checked /><span class="toggleText">Remove click IDs (gclid, fbclid, …)</span></label>
+        </section>
+        <section>
+          <button class="btn primary">Copy Clean</button>
+          <div class="actionsRow">
+            <button class="btn">Copy Original</button>
+            <button class="btn">Open Clean</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- width dimension across the top -->
+    <div class="an" style="top:-26px; left:150px;">360 px</div>
+    <div class="tick" style="top:-10px; left:0; width:360px; border-top:1px solid var(--danger);"></div>
+    <div class="tick" style="top:-14px; left:0; height:8px; border-left:1px solid var(--danger);"></div>
+    <div class="tick" style="top:-14px; left:359px; height:8px; border-left:1px solid var(--danger);"></div>
+
+    <!-- callouts -->
+    <div class="lead" style="top:14px; left:60px; width:326px;"></div>
+    <div class="callout" style="top:8px;">Header pad <b>14 / 14 / 10</b></div>
+
+    <div class="lead" style="top:48px; left:96px; width:290px;"></div>
+    <div class="callout" style="top:42px;">Logo <b>34×34</b>, radius <b>10</b>, gap <b>10</b></div>
+
+    <div class="lead" style="top:150px; left:200px; width:186px;"></div>
+    <div class="callout" style="top:144px;">Card pad <b>10</b>, radius <b>14</b>, gap <b>10</b></div>
+
+    <div class="lead" style="top:196px; left:250px; width:136px;"></div>
+    <div class="callout" style="top:190px;">Field radius <b>12</b>, pad <b>9 / 10</b></div>
+
+    <div class="lead" style="top:238px; left:250px; width:136px;"></div>
+    <div class="callout" style="top:232px;">Hint <b>12</b> mint · margin-top <b>8</b></div>
+
+    <div class="lead" style="top:392px; left:250px; width:136px;"></div>
+    <div class="callout" style="top:386px;">Toggle pad <b>8 / 6</b>, radius <b>12</b>, box <b>16</b></div>
+
+    <div class="lead" style="top:474px; left:200px; width:186px;"></div>
+    <div class="callout" style="top:468px;">Primary btn pad <b>10 / 12</b>, radius <b>14</b></div>
+
+    <div class="lead" style="top:522px; left:270px; width:116px;"></div>
+    <div class="callout" style="top:516px;">Row gap <b>8</b> · ghost = <b>50%</b></div>
+
+    <div class="legend">
+      <b>Spec notes</b><br/>
+      Body edge padding <code>14px</code> left/right. Cards stack with <code>10px</code> gap.
+      All cards use <code>backdrop-filter: blur(10px)</code> over <code>rgba(15,26,46,.72)</code>.
+      Fields &amp; toggles round to <code>12px</code>; cards &amp; buttons to <code>14px</code>.
+      Focus ring = <code>#5aa8ff @ 60%</code> border. Text sizes: title <code>16/700</code>,
+      body <code>12–13</code>, button <code>13/800</code>. Min touch target for toggles ≥ <code>36px</code> row height.
+    </div>
+  </div>
+</body>
+</html>
