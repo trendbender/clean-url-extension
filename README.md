@@ -4,6 +4,8 @@ Clean URL is a lightweight Chrome extension that removes tracking parameters fro
 
 It helps you quickly clean links by removing UTM tags, click IDs, and other common tracking parameters before sharing.
 
+📺 **Demo:** https://youtu.be/sDqNL4ojgWA · 🌐 **Site:** https://klientlab.ru/tools/clean-url-extension/ · 🧩 **Chrome Web Store:** https://chromewebstore.google.com/detail/bhapipgpnedlkjkfhgkhegjkfmhmicik
+
 ## Features
 
 - Remove UTM parameters (`utm_*`)
