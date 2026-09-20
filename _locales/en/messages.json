@@ -23,7 +23,10 @@
   "removedParams": {
     "message": "Removed $count$ params",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "cleaningRules": {
@@ -36,7 +39,7 @@
     "message": "Remove click IDs (gclid, fbclid, …)"
   },
   "toggleRef": {
-    "message": "Remove ref/tracking (ref, igshid, mc_*, …)"
+    "message": "Remove ref/tracking (referrer, igshid, mc_*, …)"
   },
   "toggleTextFragments": {
     "message": "Remove text fragments (#:~:text=)"

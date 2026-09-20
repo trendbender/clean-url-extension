@@ -20,7 +20,10 @@
   "removedParams": {
     "message": "$count$ paramètres supprimés",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "cleaningRules": {
@@ -33,7 +36,7 @@
     "message": "Supprimer les ID de clic (gclid, fbclid, …)"
   },
   "toggleRef": {
-    "message": "Supprimer ref/suivi (ref, igshid, mc_*, …)"
+    "message": "Supprimer ref/suivi (referrer, igshid, mc_*, …)"
   },
   "toggleTextFragments": {
     "message": "Supprimer les fragments de texte (#:~:text=)"

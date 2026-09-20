@@ -42,9 +42,17 @@ const CLICK_IDS = new Set([
 
 // ── General cross-site trackers ─────────────────────────────────────────────
 // Governed by removeRef. Safe to strip on any host.
+//
+// NOTE: bare `ref` and `campaignid` are deliberately NOT here. Per the design
+// rule above (global only if it has no legitimate function anywhere), they fail
+// the test: `ref` is frequently a real referral/invite/source code and
+// `campaignid` a functional app parameter, so blanket-stripping them could
+// quietly break links. Where they are genuinely tracking, scope them per host
+// in HOST_RULES instead. (`ref_src` and `referrer` are kept — they are source
+// trackers with no functional use; `gad_campaignid` covers Google Ads.)
 const REF_TRACKING = new Set([
-  "ref","ref_src","referrer",
-  "gad_source","gad_campaignid","adid","campaignid",
+  "ref_src","referrer",
+  "gad_source","gad_campaignid","adid",
   "mc_cid","mc_eid",                              // Mailchimp
   "s_cid","sc_cid","icid",                        // Adobe / Oracle
   "_openstat",                                    // Openstat / Yandex
