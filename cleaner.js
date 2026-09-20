@@ -1,10 +1,14 @@
 // Shared URL-cleaning logic used by both the popup and the service worker.
 // Keeping it in one module prevents the two entry points from drifting apart.
 //
+// This file holds LOGIC ONLY. Every parameter name lives in `rules.json`, so
+// rules can be reviewed, diffed and contributed without touching code, and so a
+// future remote rules feed can reuse this exact parse path.
+//
 // Design rule: a param is only added to a GLOBAL set if it has no legitimate
 // function anywhere (pure ad/analytics identifiers). Anything that could be
 // meaningful on some site (search query, sort, share tokens like `s`/`t`) is
-// scoped to the hosts where it is known to be tracking (HOST_RULES).
+// scoped to the hosts where it is known to be tracking (hostRules).
 
 export const DEFAULT_SETTINGS = {
   removeUtm: true,
@@ -13,122 +17,68 @@ export const DEFAULT_SETTINGS = {
   removeTextFragment: true,
 };
 
-// ── Campaign tags ───────────────────────────────────────────────────────────
-// Governed by removeUtm. utm_* plus its analytics-suite equivalents.
-const CAMPAIGN_PREFIXES = ["utm_"];
+// ── Rule loading ────────────────────────────────────────────────────────────
+// Parameter names are lowercased here rather than trusted from the data file:
+// the matcher lowercases the name it reads from the URL, so an entry like
+// `sourceType` would otherwise never match and would fail silently.
 
-// ── Advertising click identifiers ───────────────────────────────────────────
-// Governed by removeClickIds. Opaque per-click IDs — no function beyond tracking.
-const CLICK_IDS = new Set([
-  "gclid","gclsrc","gbraid","wbraid","dclid",   // Google Ads
-  "fbclid",                                       // Meta
-  "msclkid",                                      // Microsoft / Bing Ads
-  "ttclid",                                       // TikTok Ads
-  "twclid",                                       // Twitter / X Ads
-  "yclid",                                        // Yandex
-  "srsltid",                                      // Google Shopping / Merchant
-  "igshid",                                       // Instagram share
-  "epik",                                         // Pinterest
-  "cjevent",                                      // Commission Junction
-  "irclickid",                                    // Impact Radius
-  "rb_clickid",                                   // Russian ad networks
-  "s_kwcid",                                      // Adobe / Google keyword click
-  "gps_adid",                                     // Google Play
-  "wickedid",                                     // Wicked Reports
-  "li_fat_id",                                    // LinkedIn Ads
-  "_branch_match_id",                             // Branch.io
-  "vero_id",                                      // Vero email
-]);
+const lower = (list) => (Array.isArray(list) ? list.map((s) => String(s).toLowerCase()) : []);
 
-// ── General cross-site trackers ─────────────────────────────────────────────
-// Governed by removeRef. Safe to strip on any host.
-//
-// NOTE: bare `ref` and `campaignid` are deliberately NOT here. Per the design
-// rule above (global only if it has no legitimate function anywhere), they fail
-// the test: `ref` is frequently a real referral/invite/source code and
-// `campaignid` a functional app parameter, so blanket-stripping them could
-// quietly break links. Where they are genuinely tracking, scope them per host
-// in HOST_RULES instead. (`ref_src` and `referrer` are kept — they are source
-// trackers with no functional use; `gad_campaignid` covers Google Ads.)
-const REF_TRACKING = new Set([
-  "ref_src","referrer",
-  "gad_source","gad_campaignid","adid",
-  "mc_cid","mc_eid",                              // Mailchimp
-  "s_cid","sc_cid","icid",                        // Adobe / Oracle
-  "_openstat",                                    // Openstat / Yandex
-  "_hsenc","_hsmi","__hssc","__hstc","__hsfp","hsctatracking", // HubSpot
-  "mkt_tok",                                      // Marketo
-  "elqtrack","elqtrackid",                        // Eloqua
-  "oly_anon_id","oly_enc_id",                     // Olytics
-  "vero_conv",                                    // Vero
-]);
+export function compileRules(raw) {
+  if (!raw || typeof raw !== "object") return null;
+  return {
+    rulesVersion: raw.rulesVersion || "unknown",
+    neverStrip: new Set(lower(raw.neverStrip)),
+    campaignPrefixes: lower(raw.campaignPrefixes),
+    clickIds: new Set(lower(raw.clickIds)),
+    refTracking: new Set(lower(raw.refTracking)),
+    trackingPrefixes: lower(raw.trackingPrefixes),
+    siteTracking: new Set(lower(raw.siteTracking)),
+    hostRules: (Array.isArray(raw.hostRules) ? raw.hostRules : []).map((r) => ({
+      name: r.name || "",
+      domains: lower(r.domains),
+      domainsAnyTld: lower(r.domainsAnyTld),
+      excludeHosts: lower(r.excludeHosts),
+      params: new Set(lower(r.params)),
+    })),
+  };
+}
 
-// Analytics-namespace prefixes (governed by removeRef).
-const TRACKING_PREFIXES = ["mc_","pk_","mtm_","matomo_","piwik_","hsa_"];
+let cachedRules = null;
 
-// ── Cross-site trackers safe to strip anywhere ──────────────────────────────
-// LinkedIn lipi/lici/trk are page-instance & source trackers.
-const SITE_TRACKING = new Set(["lipi","lici","trk","trkinfo","refid","midtoken","midsig","otptoken","originalreferer"]);
+// Loads the packaged rules.json. Cached after the first call.
+export async function loadRules() {
+  if (cachedRules) return cachedRules;
+  const url = chrome.runtime.getURL("rules.json");
+  const raw = await (await fetch(url)).json();
+  cachedRules = compileRules(raw);
+  return cachedRules;
+}
 
-// ── Host-scoped params ──────────────────────────────────────────────────────
-// Removed ONLY on matching hosts, so we never touch params that are meaningful
-// elsewhere (search query, video id, share tokens like s/t/si).
-const HOST_RULES = [
-  {
-    // Google Search & co. — keep q/hl/tbm/start/num, drop telemetry & UI state.
-    test: (h) => /(^|\.)google\.[a-z.]+$/.test(h),
-    params: ["oq","gs_lcrp","gs_lp","gs_ssp","sourceid","source","ved","ei","sca_esv","uact","iflsig","aqs","rlz","sxsrf","biw","bih","dpr","sclient","ie"],
-  },
-  {
-    // YouTube — keep v (video) and t (timestamp), drop share/session cruft.
-    test: (h) => /(^|\.)youtube\.com$/.test(h) || h === "youtu.be",
-    params: ["si","pp","feature","ab_channel"],
-  },
-  {
-    // Amazon — the product ASIN lives in the path (/dp/…), so query is all cruft.
-    test: (h) => /(^|\.)amazon\.[a-z.]+$/.test(h),
-    params: ["qid","sr","sprefix","crid","ref_","content-id","dib","dib_tag","th","psc","pd_rd_r","pd_rd_w","pd_rd_wg","pf_rd_p","pf_rd_r","pf_rd_s","pf_rd_t","pf_rd_i"],
-  },
-  {
-    // AliExpress / Alibaba — product id in path; query is tracking/session.
-    test: (h) => /(^|\.)aliexpress\.[a-z.]+$/.test(h) || /(^|\.)alibaba\.com$/.test(h),
-    params: ["spm","scm","scm-url","pvid","_t","aff_platform","aff_trace_key","terminal_id","sk","algo_pvid","algo_expid","btsid","ws_ab_test","gatewayadapt","pdp_ext_f","pdp_npi","sourcetype","utparam"],
-  },
-  {
-    // Twitter / X — s and t are share trackers.
-    test: (h) => /(^|\.)twitter\.com$/.test(h) || /(^|\.)x\.com$/.test(h),
-    params: ["s","t","ref_src","ref_url"],
-  },
-  {
-    // TikTok — keep the video id in the path.
-    test: (h) => /(^|\.)tiktok\.com$/.test(h),
-    params: ["is_from_webapp","sender_device","web_id","_r","_t"],
-  },
-  {
-    // Spotify — si is a share/attribution token.
-    test: (h) => /(^|\.)spotify\.com$/.test(h),
-    params: ["si","nd","context"],
-  },
-  {
-    // Reddit — keep the permalink path.
-    test: (h) => /(^|\.)reddit\.com$/.test(h),
-    params: ["share_id","correlation_id","ref_campaign","ref_source","rdt","%24deep_link","%243p"],
-  },
-  {
-    // eBay — item id in path; query is marketing tracking.
-    test: (h) => /(^|\.)ebay\.[a-z.]+$/.test(h),
-    params: ["_trkparms","_trksid","hash","mkevt","mkcid","mkrid","campid","toolid","customid"],
-  },
-  {
-    // Facebook — keep the story/post path.
-    test: (h) => /(^|\.)facebook\.com$/.test(h),
-    params: ["mibextid","comment_tracking","notif_t","notif_id","__tn__","__cft__[0]","ref"],
-  },
-];
+// ── Host matching ───────────────────────────────────────────────────────────
 
-function hostParamsFor(host) {
-  for (const rule of HOST_RULES) {
-    if (rule.test(host)) return new Set(rule.params);
+function underDomain(host, domain) {
+  return host === domain || host.endsWith("." + domain);
+}
+
+// Matches a brand across country TLDs: `google` -> google.com, google.co.uk.
+// Trailing labels are capped at two so that google.com.example.org does not
+// pick up Google's rules.
+function underAnyTld(host, base) {
+  const labels = host.split(".");
+  const i = labels.lastIndexOf(base);
+  if (i === -1 || i === labels.length - 1) return false;
+  const tail = labels.slice(i + 1);
+  return tail.length <= 2 && tail.every((l) => /^[a-z]{2,}$/.test(l));
+}
+
+function hostParamsFor(host, rules) {
+  for (const rule of rules.hostRules) {
+    if (rule.excludeHosts.some((e) => underDomain(host, e))) continue;
+    const hit =
+      rule.domains.some((d) => underDomain(host, d)) ||
+      rule.domainsAnyTld.some((b) => underAnyTld(host, b));
+    if (hit) return rule.params;
   }
   return null;
 }
@@ -143,10 +93,15 @@ export function isValidHttpUrl(url) {
 }
 
 // Returns { clean, removed, safe }. On any doubt it fails safe to the original URL.
-export function cleanUrl(original, settings) {
+export function cleanUrl(original, settings, rules) {
   // Fail-safe: only process http(s)
   if (!isValidHttpUrl(original)) {
     return { clean: original, removed: 0, safe: true };
+  }
+
+  // Fail-safe: without rules we must not guess at what to strip.
+  if (!rules) {
+    return { clean: original, removed: 0, safe: false };
   }
 
   let u;
@@ -156,26 +111,30 @@ export function cleanUrl(original, settings) {
     return { clean: original, removed: 0, safe: false };
   }
 
-  const hostParams = settings.removeRef ? hostParamsFor(u.hostname.toLowerCase()) : null;
+  const hostParams = settings.removeRef ? hostParamsFor(u.hostname.toLowerCase(), rules) : null;
 
   const toDelete = [];
   for (const [key] of u.searchParams) {
     const k = key.toLowerCase();
 
-    if (settings.removeUtm && CAMPAIGN_PREFIXES.some((p) => k.startsWith(p))) {
+    // Absolute protection: destination parameters, access tokens and core
+    // content identifiers are never removed, whatever the lists below say.
+    if (rules.neverStrip.has(k)) continue;
+
+    if (settings.removeUtm && rules.campaignPrefixes.some((p) => k.startsWith(p))) {
       toDelete.push(key);
       continue;
     }
-    if (settings.removeClickIds && CLICK_IDS.has(k)) {
+    if (settings.removeClickIds && rules.clickIds.has(k)) {
       toDelete.push(key);
       continue;
     }
     if (settings.removeRef) {
       if (
-        REF_TRACKING.has(k) ||
-        SITE_TRACKING.has(k) ||
+        rules.refTracking.has(k) ||
+        rules.siteTracking.has(k) ||
         (hostParams && hostParams.has(k)) ||
-        TRACKING_PREFIXES.some((p) => k.startsWith(p))
+        rules.trackingPrefixes.some((p) => k.startsWith(p))
       ) {
         toDelete.push(key);
         continue;

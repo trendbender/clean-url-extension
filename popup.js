@@ -1,4 +1,4 @@
-import { DEFAULT_SETTINGS, cleanUrl, isValidHttpUrl } from "./cleaner.js";
+import { DEFAULT_SETTINGS, cleanUrl, isValidHttpUrl, loadRules } from "./cleaner.js";
 
 const els = {
   originalUrl: document.getElementById("originalUrl"),
@@ -15,6 +15,10 @@ const els = {
   btnCopyOriginal: document.getElementById("btnCopyOriginal"),
   btnOpenClean: document.getElementById("btnOpenClean"),
 };
+
+// Rules are loaded once during init, before the first render, so that
+// render() and cleanUrl() can stay synchronous.
+let rules = null;
 
 let currentOriginal = "";
 let currentClean = "";
@@ -76,7 +80,7 @@ function render(settings, original) {
   currentOriginal = original || "";
   els.originalUrl.value = normalizeUrlForDisplay(currentOriginal);
 
-  const result = cleanUrl(currentOriginal, settings);
+  const result = cleanUrl(currentOriginal, settings, rules);
   currentClean = result.clean;
 
   els.cleanUrl.value = normalizeUrlForDisplay(currentClean);
@@ -134,6 +138,8 @@ function wireEvents() {
 (async function init() {
   applyStaticI18n();
   wireEvents();
+
+  rules = await loadRules();
 
   const settings = await loadSettings();
   els.toggleUtm.checked = settings.removeUtm;

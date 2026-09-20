@@ -1,7 +1,7 @@
 // MV3 service worker
 // Context menu: copy a cleaned URL for the current page or a link.
 
-import { DEFAULT_SETTINGS, cleanUrl } from "./cleaner.js";
+import { DEFAULT_SETTINGS, cleanUrl, loadRules } from "./cleaner.js";
 
 async function loadSettings() {
   const data = await chrome.storage.local.get(DEFAULT_SETTINGS);
@@ -94,7 +94,8 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (!original) return;
 
   const settings = await loadSettings();
-  const result = cleanUrl(original, settings);
+  const rules = await loadRules();
+  const result = cleanUrl(original, settings, rules);
   const out = result.safe ? result.clean : original;
 
   try {
