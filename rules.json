@@ -76,6 +76,12 @@
       "params": ["qid", "sr", "sprefix", "crid", "ref_", "content-id", "dib", "dib_tag", "th", "psc", "pd_rd_r", "pd_rd_w", "pd_rd_wg", "pf_rd_p", "pf_rd_r", "pf_rd_s", "pf_rd_t", "pf_rd_i"]
     },
     {
+      "name": "IMDb",
+      "_note": "Amazon-family `ref_` records where you came from inside IMDb; the title/name id is in the path (/title/tt..., /name/nm...). Search filters (title_type, genres, sort, release_date, user_rating) and the `s` search scope are functional and deliberately left alone.",
+      "domains": ["imdb.com"],
+      "params": ["ref_", "pf_rd_p", "pf_rd_r", "pf_rd_s", "pf_rd_t", "pf_rd_i", "pf_rd_m"]
+    },
+    {
       "name": "AliExpress / Alibaba",
       "domainsAnyTld": ["aliexpress"],
       "domains": ["alibaba.com"],

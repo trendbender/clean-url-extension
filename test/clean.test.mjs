@@ -66,6 +66,20 @@ check("Weibo strips its navigation chain",
   "https://weibo.com/1234/ABCD?sudaref=google.com&wm=9006&luicode=10000011&lfid=1076",
   { gone: ["sudaref", "wm", "luicode", "lfid"] });
 
+// ── IMDb: `ref_` is Amazon-family tracking (store review, 2026-09-19) ───────
+check("IMDb strips ref_, keeps the title path",
+  "https://www.imdb.com/title/tt0111161/?ref_=nv_sr_srsg_0_tt_8_nm_0_in_0_q_shawshank",
+  { gone: ["ref_"] });
+check("IMDb strips the pf_rd_ family",
+  "https://www.imdb.com/chart/top/?ref_=nv_mv_250&pf_rd_p=abc&pf_rd_r=XYZ&pf_rd_m=A2F",
+  { gone: ["ref_", "pf_rd_p", "pf_rd_r", "pf_rd_m"] });
+check("IMDb keeps functional search filters",
+  "https://www.imdb.com/search/title/?title_type=feature&genres=drama&sort=user_rating,desc&ref_=nv_sr",
+  { gone: ["ref_"], kept: ["title_type", "genres", "sort"] });
+check("IMDb keeps the search scope s",
+  "https://www.imdb.com/find/?q=shawshank&s=tt&ref_=nv_sr_sm",
+  { gone: ["ref_"], kept: ["q", "s"] });
+
 // ── Audit finding: parameter names must match case-insensitively ────────────
 check("capitalised rule entries still match (sourceType, trackInfo)",
   "https://item.taobao.com/item.htm?id=1&sourceType=item&trackInfo=abc&utkn=zz",
