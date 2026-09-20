@@ -20,7 +20,10 @@
   "removedParams": {
     "message": "Удалено параметров: $count$",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "cleaningRules": {
@@ -33,7 +36,7 @@
     "message": "Удалять click ID (gclid, fbclid, …)"
   },
   "toggleRef": {
-    "message": "Удалять ref/трекинг (ref, igshid, mc_*, …)"
+    "message": "Удалять ref/трекинг (referrer, igshid, mc_*, …)"
   },
   "toggleTextFragments": {
     "message": "Удалять текст-фрагменты (#:~:text=)"
