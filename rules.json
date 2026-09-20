@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": "2026-09-20",
+  "_comment": "Data only. No code, no regular expressions. cleaner.js holds all logic; this file only names parameters. Keep every parameter name lowercase: the engine lowercases the name it reads from the URL before matching, so an entry with a capital letter silently never matches.",
+
+  "_neverStripComment": "Absolute protection. These are never removed, whatever any other list says, and a future remotely-loaded rules file must not be able to override them. Three classes: destination parameters that hold the actual target address, access and security tokens, and core content identifiers.",
+  "neverStrip": [
+    "target", "u", "url", "pfurl", "dest", "redirect", "redirect_uri",
+    "continue", "next", "returnurl", "return_to",
+    "code", "state", "token", "access_token", "id_token", "refresh_token",
+    "xsec_token", "sig", "signature", "nonce", "csrf", "_csrf",
+    "sn", "__biz", "idx",
+    "verifyuuid", "verifytype", "verifybiz",
+    "id", "q", "wd", "skuid"
+  ],
+
+  "campaignPrefixes": ["utm_"],
+
+  "clickIds": [
+    "gclid", "gclsrc", "gbraid", "wbraid", "dclid",
+    "fbclid",
+    "msclkid",
+    "ttclid",
+    "twclid",
+    "yclid",
+    "bd_vid",
+    "srsltid",
+    "igshid",
+    "epik",
+    "cjevent",
+    "irclickid",
+    "rb_clickid",
+    "s_kwcid",
+    "gps_adid",
+    "wickedid",
+    "li_fat_id",
+    "_branch_match_id",
+    "vero_id",
+    "isappinstalled"
+  ],
+
+  "refTracking": [
+    "ref_src", "referrer",
+    "gad_source", "gad_campaignid", "adid",
+    "mc_cid", "mc_eid",
+    "s_cid", "sc_cid", "icid",
+    "_openstat",
+    "_hsenc", "_hsmi", "__hssc", "__hstc", "__hsfp", "hsctatracking",
+    "mkt_tok",
+    "elqtrack", "elqtrackid",
+    "oly_anon_id", "oly_enc_id",
+    "vero_conv"
+  ],
+
+  "trackingPrefixes": ["mc_", "pk_", "mtm_", "matomo_", "piwik_", "hsa_"],
+
+  "siteTracking": [
+    "lipi", "lici", "trk", "trkinfo", "refid",
+    "midtoken", "midsig", "otptoken", "originalreferer"
+  ],
+
+  "hostRules": [
+    {
+      "name": "Google Search",
+      "domainsAnyTld": ["google"],
+      "params": ["oq", "gs_lcrp", "gs_lp", "gs_ssp", "sourceid", "source", "ved", "ei", "sca_esv", "uact", "iflsig", "aqs", "rlz", "sxsrf", "biw", "bih", "dpr", "sclient", "ie"]
+    },
+    {
+      "name": "YouTube",
+      "domains": ["youtube.com", "youtu.be"],
+      "params": ["si", "pp", "feature", "ab_channel"]
+    },
+    {
+      "name": "Amazon",
+      "domainsAnyTld": ["amazon"],
+      "params": ["qid", "sr", "sprefix", "crid", "ref_", "content-id", "dib", "dib_tag", "th", "psc", "pd_rd_r", "pd_rd_w", "pd_rd_wg", "pf_rd_p", "pf_rd_r", "pf_rd_s", "pf_rd_t", "pf_rd_i"]
+    },
+    {
+      "name": "AliExpress / Alibaba",
+      "domainsAnyTld": ["aliexpress"],
+      "domains": ["alibaba.com"],
+      "params": ["spm", "scm", "scm-url", "pvid", "_t", "aff_platform", "aff_trace_key", "terminal_id", "sk", "algo_pvid", "algo_expid", "btsid", "ws_ab_test", "gatewayadapt", "pdp_ext_f", "pdp_npi", "sourcetype", "utparam"]
+    },
+    {
+      "name": "Taobao / Tmall",
+      "_note": "Product id lives in `id`, search text in `q`, variant in `skuid` - all protected by neverStrip. price, scene, activity_id, user_number_id and app are deliberately NOT stripped: ClearURLs removes them but two independent reviews flagged them as functional (price filter, promo screen routing, coupon id, shop id).",
+      "domains": ["taobao.com", "tmall.com"],
+      "excludeHosts": ["shop.taobao.com", "login.taobao.com", "market.m.taobao.com"],
+      "params": ["spm", "scm", "scm-url", "pvid", "acm", "utparam", "ut_sk", "un", "share_crt_v", "sp_tk", "cpp", "shareurl", "short_name", "abtest", "turing_bucket", "sourcetype", "suid", "ali_refid", "ali_trackid", "ns", "abbucket", "algo_expid", "algo_pvid", "bfttag", "bftrwd", "impid", "lygclk", "_u", "trackinfo", "utkn"]
+    },
+    {
+      "name": "Bilibili",
+      "_note": "Keeps p (video part) and t (timestamp). `mid` is the sharer id on content pages but the profile id on space.bilibili.com, so that host is excluded. `from` and `callback` are deliberately left alone: one review reported them as functional (player mode, login return) and their privacy value is low.",
+      "domains": ["bilibili.com", "b23.tv"],
+      "excludeHosts": ["space.bilibili.com", "passport.bilibili.com", "live.bilibili.com", "api.bilibili.com"],
+      "params": ["spm_id_from", "from_source", "seid", "mid", "share_source", "msource", "refer_from", "share_from", "share_medium", "share_plat", "share_tag", "share_session_id", "timestamp", "unique_k", "vd_source", "plat_id", "buvid", "is_story_h5", "up_id", "broadcast_type"]
+    },
+    {
+      "name": "Xiaohongshu / RED",
+      "_note": "xsec_token is an access token (neverStrip) - without it a note returns 404 or a login wall. xsec_source is held back pending a live test: reviews disagreed, and a wrong call here fails invisibly because the URL stays syntactically valid. verify* are captcha state. type selects video vs gallery.",
+      "domains": ["xiaohongshu.com", "xhslink.com"],
+      "params": ["xhsshare", "author_share", "share_from_user_hidden", "app_version", "app_platform", "apptime", "appuid", "shareredid", "share_id", "exsource", "ignoreengage"]
+    },
+    {
+      "name": "Weibo",
+      "_note": "api./service./passport. are excluded because display and retcode drive the OAuth dialog there. luicode and lfid carry the user's navigation chain between feeds.",
+      "domains": ["weibo.com", "weibo.cn"],
+      "excludeHosts": ["api.weibo.com", "service.weibo.com", "passport.weibo.com", "open.weibo.com"],
+      "params": ["weibo_id", "dt_dapp", "sudaref", "wm", "luicode", "lfid"]
+    },
+    {
+      "name": "Twitter / X",
+      "domains": ["twitter.com", "x.com"],
+      "params": ["s", "t", "ref_src", "ref_url"]
+    },
+    {
+      "name": "TikTok",
+      "domains": ["tiktok.com"],
+      "params": ["is_from_webapp", "sender_device", "web_id", "_r", "_t"]
+    },
+    {
+      "name": "Spotify",
+      "domains": ["spotify.com"],
+      "params": ["si", "nd", "context"]
+    },
+    {
+      "name": "Reddit",
+      "domains": ["reddit.com"],
+      "params": ["share_id", "correlation_id", "ref_campaign", "ref_source", "rdt", "%24deep_link", "%243p"]
+    },
+    {
+      "name": "eBay",
+      "domainsAnyTld": ["ebay"],
+      "params": ["_trkparms", "_trksid", "hash", "mkevt", "mkcid", "mkrid", "campid", "toolid", "customid"]
+    },
+    {
+      "name": "Facebook",
+      "domains": ["facebook.com"],
+      "params": ["mibextid", "comment_tracking", "notif_t", "notif_id", "__tn__", "__cft__[0]", "ref"]
+    }
+  ]
+}

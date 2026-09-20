@@ -1,0 +1,13 @@
+{
+  "name": "clean-url-extension",
+  "version": "1.5.2",
+  "description": "Chrome MV3 extension that strips tracking parameters from URLs.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node test/clean.test.mjs",
+    "build": "node scripts/build.mjs",
+    "publish:store": "node scripts/publish.mjs"
+  },
+  "license": "MIT"
+}
