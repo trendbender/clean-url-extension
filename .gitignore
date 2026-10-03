@@ -3,3 +3,8 @@
 node_modules/
 dist/
 .env
+
+# локальное, в публичный репо не уходит
+CLAUDE.md
+CLAUDE.md.bak
+articles/
