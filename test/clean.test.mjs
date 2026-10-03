@@ -80,6 +80,54 @@ check("IMDb keeps the search scope s",
   "https://www.imdb.com/find/?q=shawshank&s=tt&ref_=nv_sr_sm",
   { gone: ["ref_"], kept: ["q", "s"] });
 
+// ── Live-verified 2026-10-03 (rules 2026-10-03) ─────────────────────────────
+// Every case below was checked against the real site before the rule was added.
+
+// Baidu: the strippable block came from a URL Baidu's own search box produced.
+check("Baidu strips its telemetry block, keeps the query",
+  "https://www.baidu.com/s?wd=test&rsv_pq=f2724e0a&rsv_t=e914bWW&rsv_bp=1&rsv_enter=1&rsv_dl=tb&rsv_spt=3&inputT=512&usm=1&rsf=1",
+  { gone: ["rsv_pq", "rsv_t", "rsv_bp", "rsv_enter", "rsv_dl", "rsv_spt", "inputT", "usm", "rsf"], kept: ["wd"] });
+check("Baidu strips the previous query out of oq and bs",
+  "https://www.baidu.com/s?wd=now&oq=what+i+searched+before&bs=older+query&rsv_sug3=5&rsv_sug1=3&rsv_sug7=100",
+  { gone: ["oq", "bs", "rsv_sug3", "rsv_sug1", "rsv_sug7"], kept: ["wd"] });
+check("Baidu KEEPS tn: it selects the vertical (tn=news renders the news tab)",
+  "https://www.baidu.com/s?wd=movie&tn=news&rsv_pq=abc",
+  { gone: ["rsv_pq"], kept: ["wd", "tn"] });
+check("Baidu KEEPS pn (pagination) and ie (query encoding)",
+  "https://www.baidu.com/s?wd=movie&pn=10&ie=gbk&rsv_t=abc",
+  { gone: ["rsv_t"], kept: ["wd", "pn", "ie"] });
+check("Baidu KEEPS the result filters rqlang and rn",
+  "https://www.baidu.com/s?wd=movie&rqlang=cn&rn=50&f=8",
+  { gone: ["f"], kept: ["wd", "rqlang", "rn"] });
+check("pan.baidu.com is excluded, so a share link keeps its password",
+  "https://pan.baidu.com/s/1abcdef?pwd=k3n9&f=8",
+  { kept: ["pwd", "f"] });
+
+// Bilibili: trackid and from_spmid were found on bilibili's own links.
+check("Bilibili strips trackid (per-session request id) and from_spmid",
+  "https://www.bilibili.com/video/BV1r4a96KEfn/?p=2&t=30&trackid=web_related_0.router-related-2589621.1791041059482.607&from_spmid=666.4.0.1",
+  { gone: ["trackid", "from_spmid"], kept: ["p", "t"] });
+check("Bilibili KEEPS from and callback (no identifier / JSONP plumbing)",
+  "https://www.bilibili.com/video/BV1x?from=search&callback=mycb&vd_source=dead",
+  { gone: ["vd_source"], kept: ["from", "callback"] });
+check("Bilibili KEEPS theme (movie layout on /bangumi)",
+  "https://www.bilibili.com/bangumi/play/ss48001?theme=movie&from_spmid=666.4.0.1",
+  { gone: ["from_spmid"], kept: ["theme"] });
+
+// Xiaohongshu: the note renders with xsec_source removed - the site re-adds it.
+check("Xiaohongshu strips xsec_source but never the token",
+  "https://www.xiaohongshu.com/explore/6aa1e476?xsec_token=AB5ffU0jOhDX&xsec_source=pc_feed&channel_type=explore_feed&parent_page_channel_type=web_profile_board",
+  { gone: ["xsec_source", "channel_type", "parent_page_channel_type"], kept: ["xsec_token"] });
+
+// Redirect targets seen while testing: JD and Zhihu bounce through a login that
+// carries the whole original URL, so these names must survive everywhere.
+check("JD login bounce keeps ReturnUrl",
+  "https://passport.jd.com/new/login.aspx?ReturnUrl=https%3A%2F%2Fsearch.jd.com%2FSearch%3Fkeyword%3Dx&czLogin=1",
+  { kept: ["ReturnUrl"] });
+check("Zhihu security bounce keeps next",
+  "https://www.zhihu.com/account/unhuman?type=U4E3Z1&need_login=true&next=%2Fsignin",
+  { kept: ["next"] });
+
 // ── Audit finding: parameter names must match case-insensitively ────────────
 check("capitalised rule entries still match (sourceType, trackInfo)",
   "https://item.taobao.com/item.htm?id=1&sourceType=item&trackInfo=abc&utkn=zz",

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "rulesVersion": "2026-09-20",
+  "rulesVersion": "2026-10-03",
   "_comment": "Data only. No code, no regular expressions. cleaner.js holds all logic; this file only names parameters. Keep every parameter name lowercase: the engine lowercases the name it reads from the URL before matching, so an entry with a capital letter silently never matches.",
 
   "_neverStripComment": "Absolute protection. These are never removed, whatever any other list says, and a future remotely-loaded rules file must not be able to override them. Three classes: destination parameters that hold the actual target address, access and security tokens, and core content identifiers.",
@@ -95,17 +95,24 @@
       "params": ["spm", "scm", "scm-url", "pvid", "acm", "utparam", "ut_sk", "un", "share_crt_v", "sp_tk", "cpp", "shareurl", "short_name", "abtest", "turing_bucket", "sourcetype", "suid", "ali_refid", "ali_trackid", "ns", "abbucket", "algo_expid", "algo_pvid", "bfttag", "bftrwd", "impid", "lygclk", "_u", "trackinfo", "utkn"]
     },
     {
+      "name": "Baidu Search",
+      "_note": "Every name here was taken from a URL Baidu itself generated (submitting its own search box) and then verified live 2026-10-03: with the whole block present the result page is byte-for-byte the same page as without it. rsv_pq / rsv_t are a per-request id and a signed telemetry token; bs and oq are the PREVIOUS query, so they leak your search history into the next URL. tn and pn are deliberately NOT stripped: tn selects the vertical (tn=news renders Baidu's news tab instead of web results) and pn is the pagination offset (pn=10 is page two) - removing either fails invisibly, which is exactly the class of bug neverStrip exists for. ie is left alone too: Baidu autodetects the query encoding (a GBK wd read correctly with ie removed), so stripping it is risk without a privacy gain. rqlang (result language) and rn (results per page) are filters. The rest of the rsv_sug / rsv_idx family is deliberately NOT listed: those names turn up in other projects' lists but never appeared in a URL Baidu handed us and were never put through the live check, and an unverified name is exactly what this project refuses to copy. baidu.com covers every Baidu sub-product, so hosts where generic names like f or ch could be functional are excluded.",
+      "domains": ["baidu.com"],
+      "excludeHosts": ["pan.baidu.com", "yun.baidu.com", "fanyi.baidu.com", "tieba.baidu.com", "zhidao.baidu.com", "map.baidu.com", "passport.baidu.com", "openapi.baidu.com", "pay.baidu.com", "wenku.baidu.com", "aip.baidu.com"],
+      "params": ["rsv_pq", "rsv_t", "rsv_bp", "rsv_enter", "rsv_dl", "rsv_spt", "rsv_n", "rsv_sug1", "rsv_sug3", "rsv_sug7", "inputt", "bs", "oq", "f", "bar", "ch", "usm", "rsf"]
+    },
+    {
       "name": "Bilibili",
-      "_note": "Keeps p (video part) and t (timestamp). `mid` is the sharer id on content pages but the profile id on space.bilibili.com, so that host is excluded. `from` and `callback` are deliberately left alone: one review reported them as functional (player mode, login return) and their privacy value is low.",
+      "_note": "Keeps p (video part) and t (timestamp) - both verified live 2026-10-03: p=2 switches to part two, t=30 seeks. `mid` is the sharer id on content pages but the profile id on space.bilibili.com, so that host is excluded. `trackid` and `from_spmid` were found on bilibili's OWN links (home-page recommendations and /anime entries) and verified inert; trackid carries a per-session request id with a timestamp. `from` is left alone: verified inert on video pages, but it holds no identifier and spm_id_from already covers the same source info, so stripping a name that generic buys nothing. `callback` is rejected outright, not deferred: it is JSONP plumbing rather than an identifier, so removing it has no privacy upside. `theme` (movie layout on /bangumi) must stay.",
       "domains": ["bilibili.com", "b23.tv"],
       "excludeHosts": ["space.bilibili.com", "passport.bilibili.com", "live.bilibili.com", "api.bilibili.com"],
-      "params": ["spm_id_from", "from_source", "seid", "mid", "share_source", "msource", "refer_from", "share_from", "share_medium", "share_plat", "share_tag", "share_session_id", "timestamp", "unique_k", "vd_source", "plat_id", "buvid", "is_story_h5", "up_id", "broadcast_type"]
+      "params": ["spm_id_from", "from_spmid", "from_source", "seid", "mid", "share_source", "msource", "refer_from", "share_from", "share_medium", "share_plat", "share_tag", "share_session_id", "timestamp", "unique_k", "vd_source", "plat_id", "buvid", "is_story_h5", "up_id", "broadcast_type", "trackid"]
     },
     {
       "name": "Xiaohongshu / RED",
-      "_note": "xsec_token is an access token (neverStrip) - without it a note returns 404 or a login wall. xsec_source is held back pending a live test: reviews disagreed, and a wrong call here fails invisibly because the URL stays syntactically valid. verify* are captcha state. type selects video vs gallery.",
+      "_note": "xsec_token is an access token (neverStrip) - without it a note returns 404 or a login wall. xsec_source IS strippable: verified live 2026-10-03 on a real note, token kept and xsec_source removed - the note rendered in full (author, 62 CDN images) and Xiaohongshu re-appended xsec_source=pc_feed on its own, which is what settled the disagreement between reviews. On its own note links the site even emits xsec_source= empty. channel_type / parent_page_channel_type are navigation-source markers that the site itself drops from the URL on load. verify* are captcha state. type selects video vs gallery.",
       "domains": ["xiaohongshu.com", "xhslink.com"],
-      "params": ["xhsshare", "author_share", "share_from_user_hidden", "app_version", "app_platform", "apptime", "appuid", "shareredid", "share_id", "exsource", "ignoreengage"]
+      "params": ["xhsshare", "xsec_source", "channel_type", "parent_page_channel_type", "author_share", "share_from_user_hidden", "app_version", "app_platform", "apptime", "appuid", "shareredid", "share_id", "exsource", "ignoreengage"]
     },
     {
       "name": "Weibo",
