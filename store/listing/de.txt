@@ -1,0 +1,24 @@
+Clean URL entfernt Tracking-Parameter aus Links, bevor du sie teilst.
+
+✔ Entfernt UTM-Tags (utm_source, utm_medium, utm_campaign, utm_term)
+✔ Entfernt Werbe-Klick-IDs (gclid, fbclid, msclkid und mehr)
+✔ Entfernt Shopping- und E-Mail-/Marketing-IDs (srsltid, mc_*, mkt_tok)
+✔ Entfernt Referral- und Tracking-Parameter (ref, igshid und über 50 weitere)
+✔ Intelligente seitenspezifische Bereinigung für große Such-, Social-, Video- und Shopping-Seiten — ohne den Link zu zerstören
+✔ Entfernt „Scroll-to-Text"-Fragmente (#:~:text=)
+✔ Arbeitet vollständig lokal — keine Datenerfassung, keine Analyse
+✔ Ein Klick. Kein Login. Kein Ballast.
+
+So funktioniert's:
+1. Öffne eine beliebige Seite
+2. Klicke auf das Clean-URL-Symbol — oder Rechtsklick → Saubere URL kopieren
+3. Kopiere sofort einen sauberen, teilbaren Link
+
+Du behältst die Kontrolle:
+• Schalte jede Bereinigungsregel ein/aus — deine Wahl wird gespeichert
+• Sieh Original- und bereinigte URL nebeneinander
+• Sauber kopieren, Original kopieren oder Sauber öffnen
+
+In 7 Sprachen verfügbar — die Oberfläche folgt automatisch deiner Browsersprache.
+
+Clean URL läuft vollständig in deinem Browser. Kein Tracking. Keine externen Server.

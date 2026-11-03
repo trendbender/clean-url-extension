@@ -1,0 +1,24 @@
+O Clean URL ajuda você a remover parâmetros de rastreamento dos links antes de compartilhar.
+
+✔ Remove tags UTM (utm_source, utm_medium, utm_campaign, utm_term)
+✔ Remove IDs de clique de anúncios (gclid, fbclid, msclkid e mais)
+✔ Remove IDs de compras e e-mail/marketing (srsltid, mc_*, mkt_tok)
+✔ Remove parâmetros de referência e rastreamento (ref, igshid e mais de 50 outros)
+✔ Limpeza inteligente por site para os principais sites de busca, redes sociais, vídeo e compras — sem quebrar o link
+✔ Remove fragmentos "scroll-to-text" (#:~:text=)
+✔ Funciona totalmente local — sem coleta de dados, sem análise
+✔ Um clique. Sem login. Sem ruído.
+
+Como funciona:
+1. Abra qualquer página
+2. Clique no ícone do Clean URL — ou clique com o botão direito → Copiar URL limpa
+3. Copie um link limpo e pronto para compartilhar na hora
+
+Você no controle:
+• Ative/desative cada regra de limpeza — sua escolha é lembrada
+• Veja a URL original e a limpa lado a lado
+• Copiar limpa, Copiar original ou Abrir limpa
+
+Disponível em 7 idiomas — a interface segue automaticamente o idioma do seu navegador.
+
+O Clean URL funciona inteiramente no seu navegador. Sem rastreamento. Sem servidores externos.
