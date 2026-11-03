@@ -67,5 +67,9 @@
   },
   "ctxCopyCleanLink": {
     "message": "Copiar URL limpa (link)"
+  },
+  "feedbackLink": {
+    "message": "Sugerir uma melhoria ou relatar um bug",
+    "description": "Popup footer link to the feedback form on 4queries.com"
   }
 }

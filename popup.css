@@ -144,3 +144,11 @@ body{
 }
 .status.ok{ color: var(--status-success); }
 .status.err{ color: var(--status-error); }
+.feedbackLink{
+  display:block;
+  margin-top:var(--space-10);
+  font-size:var(--fs-small);
+  color:var(--muted);
+  text-align:center;
+}
+.feedbackLink:hover{ color:var(--text); }

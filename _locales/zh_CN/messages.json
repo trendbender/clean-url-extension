@@ -67,5 +67,9 @@
   },
   "ctxCopyCleanLink": {
     "message": "复制干净网址（链接）"
+  },
+  "feedbackLink": {
+    "message": "提出改进建议或报告问题",
+    "description": "Popup footer link to the feedback form on 4queries.com"
   }
 }
